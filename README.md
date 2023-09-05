@@ -9,6 +9,7 @@ De forma resumida, o desenvolvimento foi feito com o framework Spring Boot fazen
 
 # Competências
 - Padrão de Projeto: DAO (Data Access Object)
+- Padrão em camadas
 
 
 # Tecnologias utilizadas
