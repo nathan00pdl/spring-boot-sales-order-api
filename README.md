@@ -9,21 +9,21 @@ De forma resumida, o desenvolvimento foi feito com o framework Spring Boot fazen
 
 # Competências
 - Padrão de Projeto: DAO (Data Access Object)
-- Padrão em camadas
+- Sistema em camadas
 
 
 # Tecnologias utilizadas
 ## Back end
 - Java
-- Spring Boot
-- JPA / Hibernate
-- Maven
+- Spring Boot (principal framework java para desenvolvimento comercial)
+- JPA / Hibernate (acesso a dados com mapeamento objeto-relacional (ORM))
+- Maven (gerenciamento de dependências)
   
 ## Conexão ao banco de dados
-- JDBC
+- JDBC (acesso a dados baseado em SQL)
   
 ## Requisições web
-- Postman
+- Postman (teste de requisições com métodos GET, PUT, POST e DELETE)
 
 
 
