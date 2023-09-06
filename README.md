@@ -1,4 +1,4 @@
-# Projeto Spring Boot
+# Projeto Spring Boot 2
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/nathan00pdl/Projeto2_Java_Spring/blob/main/LICENSE) 
 
 # Sobre o projeto
