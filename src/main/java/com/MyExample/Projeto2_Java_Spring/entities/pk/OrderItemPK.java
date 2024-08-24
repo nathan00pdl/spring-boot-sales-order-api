@@ -10,17 +10,16 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-//OBS:
-//Essa será uma "classe auxiliar de chave primária composta"
-//Representa a chave primária do item de pedido ('OrderItem')
-//Essa classe terá uma referência para as duas classes ('Product' e 'Order')
+/*
+ * Classe auxiliar de chave primária composta
+ * Representa a chave primária do item de pedido ('OrderItem') 
+ * Essa classe terá uma referência para as duas classes ('Product' e 'Order') 
+ */
 
 @Embeddable
 public class OrderItemPK implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	//Declarando as "referências"
 	
 	@ManyToOne
 	@JoinColumn(name = "order_id")
@@ -30,15 +29,12 @@ public class OrderItemPK implements Serializable{
 	@JoinColumn(name = "product_id")
 	private Product product;
 	
-	
-	//Declarando métodos getters e setters
 	public Order getOrder() {
 		return order;
 	}
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
 	
 	public Product getProduct() {
 		return product;
@@ -47,8 +43,6 @@ public class OrderItemPK implements Serializable{
 		this.product = product;
 	}
 	
-	
-	//Declarando método Equals e HashCode 
 	@Override
 	public int hashCode() {
 		return Objects.hash(order, product);

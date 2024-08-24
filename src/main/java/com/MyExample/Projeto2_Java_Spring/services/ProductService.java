@@ -11,21 +11,14 @@ import com.MyExample.Projeto2_Java_Spring.repositories.ProductRepository;
 
 @Service
 public class ProductService {
-
-	//Declarando "Injeção de dependência"
 	
 	@Autowired   
 	private ProductRepository repository;
 	
-	
-	//Declarando endpoints
-	
-	//Retornando todos os usuários do banco de dados
 	public List<Product> findAll(){
 		return repository.findAll();
 	}
 	
-	//Retornando usuários pelo id
 	public Product FindById(Long id) {
 		Optional<Product> obj = repository.findById(id);
 		return obj.get();

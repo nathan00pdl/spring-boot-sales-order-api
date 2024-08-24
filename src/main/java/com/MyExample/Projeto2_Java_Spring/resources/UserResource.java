@@ -18,38 +18,25 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.MyExample.Projeto2_Java_Spring.entities.User;
 import com.MyExample.Projeto2_Java_Spring.services.UserService;
 
-//Classe 'UserResource' é responsável por forneceer recursos web (implementados por controladores rest) 
-//correspondentes para a classe 'User'
-
 @RestController 
 @RequestMapping(value = "/users")
 public class UserResource { 
 
-	//Declarando "Injeção de dependência"
-
-	@Autowired  //Resolve a dependência e associa uma instância desse objeto ('userRepository') à classe 'userService'
+	@Autowired  
 	private UserService service;
-	
-	
-	//Declarando de endpoints:
-	
-	//Acessando os usuários
-	@GetMapping //Indica que o método responde pela requisição do tipo 'GET' do protocolo http  
+
+	@GetMapping 
 	public ResponseEntity<List<User>> findAll(){
 		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	//Retornando usuários pelo id
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
 		User obj = service.FindById(id);
 		 return ResponseEntity.ok().body(obj);
 	}
-	
-	//OBS: Os dois endpints acima utilizam 'GetMapping' pois possuem a funcionalide de RECUPERAR dados do banco de dados
-	
-	//Inserindo (INSERT) usuários no banco de dados H2
+
 	@PostMapping
 	public 	ResponseEntity<User> insert(@RequestBody User obj){
 		obj = service.insert(obj);
@@ -57,16 +44,12 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	//OBS: O endpoint acima utiliza 'PostMapping' pois possui a funcionalide de INSERIR dados no banco de dados
-	
-	//Deletando (DELETE) usuários do banco de dados H2
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	//Atualizando (UPDATE) usuários do banco de dados H2
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
 		obj = service.update(id, obj);

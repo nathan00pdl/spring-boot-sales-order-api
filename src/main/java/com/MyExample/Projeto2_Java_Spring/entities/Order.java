@@ -23,11 +23,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order")
-public class Order implements Serializable{  //classe referente aos pedidos
+public class Order implements Serializable{  
 
 	private static final long serialVersionUID = 1L;
-
-	//Declarando associações
 	
 	@Id  
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
@@ -37,21 +35,18 @@ public class Order implements Serializable{  //classe referente aos pedidos
 	private Instant moment;
 	
 	@ManyToOne  
-	@JoinColumn(name = "client_id")  //Nomeação da FK (na tabela 'tb_order' terá uma chave estrangeira chamada 'client_id')
+	@JoinColumn(name = "client_id")  //Nomeação da foreign key 'client_id'
 	private User client;
 	
 	private Integer orderStatus;
 	
 	@OneToMany(mappedBy = "id.order")
-	private Set<OrderItem> items = new HashSet<>();  //Coleção de itens
+	private Set<OrderItem> items = new HashSet<>();  
 	
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment; 
 	
-	
-	//Declarando construtores
 	public Order() {}
-
 	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		super();
 		this.id = id;
@@ -60,15 +55,12 @@ public class Order implements Serializable{  //classe referente aos pedidos
 		this.client = client;
 	}
 
-
-	//Declaradando métodos getters e setters
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	
 	public Instant getMoment() {
 		return moment;
@@ -76,7 +68,6 @@ public class Order implements Serializable{  //classe referente aos pedidos
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
-
 	
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.valueOf(orderStatus);
@@ -87,14 +78,12 @@ public class Order implements Serializable{  //classe referente aos pedidos
 		}
 	}
 	
-	
 	public User getClient() {
 		return client;
 	}
 	public void setClient(User client) {
 		this.client = client;
 	}
-
 	
 	public Payment getPayment() {
 		return payment;
@@ -103,13 +92,10 @@ public class Order implements Serializable{  //classe referente aos pedidos
 		this.payment = payment;
 	}
 	
-	
 	public Set<OrderItem> getItems(){
 		return items;
 	}
 	
-	
-	//Declarando método para calacular o preço total do pedido (total do pedido = soma dos preços subtotais dos itens de pedido)
 	public Double getTotal() {
 		double sum = 0.0;
 		
@@ -119,8 +105,6 @@ public class Order implements Serializable{  //classe referente aos pedidos
 		return sum;
 	}
 	
-	
-	//Declaradando métodos Equals e HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

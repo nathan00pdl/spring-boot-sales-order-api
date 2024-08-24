@@ -11,21 +11,14 @@ import com.MyExample.Projeto2_Java_Spring.repositories.CategoryRepository;
 
 @Service
 public class CategoryService {
-
-	//Declarando "Injeções de dependências"
 	
 	@Autowired   
 	private CategoryRepository repository;
 	
-	
-	//Declarando de endpoints:
-	
-	//Retornando todos as categorias do banco de dados
 	public List<Category> findAll(){
 		return repository.findAll(); 
 	}
 	
-	//Retornando usuários pelo id
 	public Category FindById(Long id) {
 		Optional<Category> obj = repository.findById(id);
 		return obj.get();

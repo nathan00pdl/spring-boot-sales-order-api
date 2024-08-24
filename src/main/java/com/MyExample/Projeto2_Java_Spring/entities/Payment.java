@@ -26,33 +26,24 @@ public class Payment implements Serializable{
 	
 	private Instant moment;
 	
-	
-	//Declarando Associações
-	
 	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Order order;
 	
-	
-	//Declarando Construtores
 	public Payment() {}
-
 	public Payment(Long id, Instant moment, Order order) {
 		this.id = id;
 		this.moment = moment;
 		this.order = order;
 	}
-
 	
-	//Declarando métodos getters e setters 
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	
 	public Instant getMoment() {
 		return moment;
@@ -61,7 +52,6 @@ public class Payment implements Serializable{
 		this.moment = moment;
 	}
 
-	
 	public Order getOrder() {
 		return order;
 	}
@@ -69,8 +59,6 @@ public class Payment implements Serializable{
 		this.order = order;
 	}
 
-	
-	//Declarando métodos Equals e HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

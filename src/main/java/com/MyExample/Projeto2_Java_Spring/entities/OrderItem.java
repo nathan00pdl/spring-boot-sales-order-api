@@ -19,14 +19,10 @@ public class OrderItem implements Serializable{
 	private Integer quantity;
 	private Double price;
 	
-	//Declarando atributo identificador (corresponde à chave primária)
 	@EmbeddedId
 	private OrderItemPK id = new OrderItemPK();
 	
-	
-	//Declarando construtores
 	public OrderItem() {}
-
 	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		id.setOrder(order);
 		id.setProduct(product);
@@ -34,8 +30,6 @@ public class OrderItem implements Serializable{
 		this.price = price;
 	}
 
-	
-	//Declarando métodos getters e setters
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
@@ -43,15 +37,13 @@ public class OrderItem implements Serializable{
 	public void setOrder(Order order) {
 		id.setOrder(order);
 	}
-	
-	
+		
 	public Product getProduct() {
 		return id.getProduct();
 	}
 	public void setProduct(Product product) {
 		id.setProduct(product);
 	}
-	
 	
 	public Integer getQuantity() {
 		return quantity;
@@ -60,7 +52,6 @@ public class OrderItem implements Serializable{
 		this.quantity = quantity;
 	}
 
-	
 	public Double getPrice() {
 		return price;
 	}
@@ -68,20 +59,15 @@ public class OrderItem implements Serializable{
 		this.price = price;
 	}
 
-	
-	//Declarando métodos Equals e HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
-	}
+	}	
 	
-	
-	//Declarando método para calcular o preço subtotal do pedido
 	public Double getSubTotal() {
 		return price * quantity;
 	}
 	
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

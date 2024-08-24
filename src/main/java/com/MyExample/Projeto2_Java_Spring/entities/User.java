@@ -14,17 +14,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-//OBS: A interface 'Serializable' é responsável por transformar os objetos (nesse caso a classe 'User') em uma 
-//CADEIA DE BYTES. Dessa forma, os objetos são capazes de trafegar pela rede, serem salvos em arquivos e etc.
-
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id  //Indicação de que o atributo 'id' será uma primary key do banco de dados H2
-	@GeneratedValue(strategy = GenerationType.IDENTITY)  //Esse atributo será autoincrementável no banco de dados H2
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	private Long id;
 	
 	private String name;
@@ -32,17 +29,11 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
-	
-	//Declarando associações
-	
-	@JsonIgnore  //A collection 'orders' não será incluído na representação JSON do objeto 'Client' *ISSO AINDA NÃO FICOU MUITO CLARO*
+	@JsonIgnore  
 	@OneToMany(mappedBy =  "client")
 	private List<Order> orders = new ArrayList<>(); 
 	
-	
-	//Declaradando Construtores
 	public User () {}
-
 	public User(Long id, String name, String email, String phone, String password) {
 		super();
 		this.id = id;
@@ -52,8 +43,6 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	
-	//Declaradando métodos getters e setters
 	public Long getId() {
 		return id;
 	}
@@ -61,14 +50,12 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	
 	public String getEmail() {
 		return email;
@@ -76,7 +63,6 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	
 	public String getPhone() {
 		return phone;
@@ -84,7 +70,6 @@ public class User implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	
 	public String getPassword() {
 		return password;
@@ -97,8 +82,6 @@ public class User implements Serializable{
 		return orders;
 	}
 
-	
-	//Declaradando métodos Equals e HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -115,9 +98,5 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
-	//Declaradando métodos
-
 }
 

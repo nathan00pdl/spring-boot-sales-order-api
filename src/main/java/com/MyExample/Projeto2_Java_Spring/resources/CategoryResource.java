@@ -16,27 +16,19 @@ import com.MyExample.Projeto2_Java_Spring.services.CategoryService;
 @RestController 
 @RequestMapping(value = "/categories")
 public class CategoryResource { 
-
-	//Declarando "Injeções de dependência"
 	
 	@Autowired  
 	private CategoryService service;
 	
-	
-	//Declarando de endpoints
-	
-	//Acessando as categorias
 	@GetMapping 
 	public ResponseEntity<List<Category>> findAll(){
 		List<Category> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	//Retornando categorias pelo id
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Category> findById(@PathVariable Long id){
 		Category obj = service.FindById(id);
 		 return ResponseEntity.ok().body(obj);
 	}
-	
 }

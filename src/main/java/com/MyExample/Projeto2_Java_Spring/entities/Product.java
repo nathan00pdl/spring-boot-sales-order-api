@@ -32,12 +32,10 @@ public class Product implements Serializable{
 	private Double price;
 	private String imgUrl;
 	
-	
-	//Declarando Associações
-	
-	//OBS: 
-	//Preferência pela interface 'Set' pois ela corresponde a um determinado conjunto
-	//Sendo um conjunto, isso garantirá que um produto não terá mais de uma ocorrência da mesma categoria
+	/*
+	 * Preferência pela interface 'Set' pois ela corresponde a um determinado conjunto
+	 * Sendo um conjunto, isso garantirá que um produto não terá mais de uma ocorrência da mesma categoria
+	 */
 	
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id")) 
@@ -46,9 +44,7 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> items = new HashSet<>();	 //Coleção de itens
 	
-	//Declarando Construtores
 	public Product() {}
-
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		this.id = id;
 		this.name = name;
@@ -57,15 +53,12 @@ public class Product implements Serializable{
 		this.imgUrl = imgUrl;
 	}
 
-
-	//Declarando metodos getters e setters
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	
 	public String getName() {
 		return name;
@@ -73,7 +66,6 @@ public class Product implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	
 	public String getDescription() {
 		return description;
@@ -81,7 +73,6 @@ public class Product implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	
 	public Double getPrice() {
 		return price;
@@ -89,7 +80,6 @@ public class Product implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-
 	
 	public String getImgUrl() {
 		return imgUrl;
@@ -97,7 +87,6 @@ public class Product implements Serializable{
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
 	
 	public Set<Category> getCategories() {
 		return categories;
@@ -110,12 +99,9 @@ public class Product implements Serializable{
 		for (OrderItem x : items) {
 			set.add(x.getOrder());
 		}
-		
 		return set;
 	}
 	
-	
-	//Declarando métodos Equals e HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -132,6 +118,4 @@ public class Product implements Serializable{
 		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	//Declarando métodos
 }

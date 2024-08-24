@@ -25,32 +25,23 @@ public class Category implements Serializable{
 	private Long id;
 	
 	private String name;
-
-	
-	//Declarando Associações
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();  //Coleção de produtos  
 	
-	
-	//Declarando Contrutores
-	public Category() {}
-	
+	public Category() {}	
 	public Category(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	
-	//Declarando métodos getters e setters
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 	
 	public String getName() {
 		return name;
@@ -59,13 +50,10 @@ public class Category implements Serializable{
 		this.name = name;
 	}
 	
-	
 	public Set<Product> getProducts() {
 		return products;
 	}
 
-	
-	//Declarando métodos Equals e HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -82,6 +70,4 @@ public class Category implements Serializable{
 		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	//Declarando métodos
 }
