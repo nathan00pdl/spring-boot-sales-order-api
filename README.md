@@ -4,7 +4,7 @@
 
 # About the project 
 
-This project was carried out in conjunction with the classes available in the course "COMPLETE Java 2023 Object-Oriented Programming + Projects" on the Udemy platform (https://www.udemy.com/). 
+This project was carried out in conjunction with the classes available in the course "COMPLETE Java 2023 Object-Oriented Programming + Projects" on the [Udemy](https://www.udemy.com/) platform. 
 
 In short, as a second java application using the Spring Boot framework, I maintained some features of the first project, but involving a basic system of users, orders and payments.   
 
