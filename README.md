@@ -14,7 +14,7 @@ In short, as a second java application using the **Spring Boot** framework, I ma
 
 ## Project structure  
 - Design pattern: **DAO** (Data Access Object)
-- **Layered system - MVC** 
+- **Layered architecture - MVC** 
 
 ## Backend
 - **Java**
