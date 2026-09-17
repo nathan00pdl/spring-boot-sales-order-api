@@ -18,58 +18,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Domain model
 
-```mermaid
-classDiagram
-    direction LR
-    class User {
-        +Long id
-        +String name
-        +String email
-        +String phone
-        +String password
-    }
-    class Order {
-        +Long id
-        +Instant moment
-        +OrderStatus orderStatus
-        +getTotal() Double
-    }
-    class OrderItem {
-        +Integer quantity
-        +Double price
-        +getSubTotal() Double
-    }
-    class Product {
-        +Long id
-        +String name
-        +String description
-        +Double price
-        +String imgUrl
-    }
-    class Category {
-        +Long id
-        +String name
-    }
-    class Payment {
-        +Long id
-        +Instant moment
-    }
-    class OrderStatus {
-        <<enumeration>>
-        WAITING_PAYMENT
-        PAID
-        SHIPPED
-        DELIVERED
-        CANCELED
-    }
-
-    User "1" --> "*" Order : places
-    Order "1" *-- "*" OrderItem : contains
-    OrderItem "*" --> "1" Product
-    Product "*" -- "1..*" Category
-    Order "1" --> "0..1" Payment
-    Order --> OrderStatus
-```
+<img src="docs/domain-model.svg" alt="Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enumeration." width="880">
 
 - **`Product`** and **`Category`** relate many-to-many.
 - **`Order`** belongs to a **`User`** and carries an **`OrderStatus`**: `WAITING_PAYMENT`, `PAID`, `SHIPPED`, `DELIVERED` or `CANCELED`.
@@ -78,16 +27,7 @@ classDiagram
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    Client[Client] --> R["Resource layer<br/>REST controllers"]
-    R --> S[Service layer]
-    S --> D["Data access layer<br/>JPA repositories"]
-    D --> DB[("H2 in-memory")]
-    R -.-> E[Entities]
-    S -.-> E
-    D -.-> E
-```
+<img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="420">
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
 
@@ -133,6 +73,14 @@ curl http://localhost:8080/orders/1
 ```
 
 The H2 console is at `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:mem:testdb`, user `sa`, empty password), and the SQL Hibernate runs is printed to the log.
+
+## Diagrams
+
+Both diagrams are generated from the Mermaid sources in `docs/`, so they stay editable text rather than binary images:
+
+```bash
+npx @mermaid-js/mermaid-cli -i docs/domain-model.mmd -o docs/domain-model.svg -t default -b white -c docs/mermaid-config.json
+```
 
 ## License
 

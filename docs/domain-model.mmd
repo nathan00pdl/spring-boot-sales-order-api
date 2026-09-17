@@ -1,0 +1,58 @@
+classDiagram
+    direction LR
+    class User {
+        +Long id
+        +String name
+        +String email
+        +String phone
+        +String password
+    }
+    class Order {
+        +Long id
+        +Instant moment
+        +OrderStatus orderStatus
+        +getTotal() Double
+    }
+    class OrderItem {
+        +Integer quantity
+        +Double price
+        +getSubTotal() Double
+    }
+    class Product {
+        +Long id
+        +String name
+        +String description
+        +Double price
+        +String imgUrl
+    }
+    class Category {
+        +Long id
+        +String name
+    }
+    class Payment {
+        +Long id
+        +Instant moment
+    }
+    class OrderStatus {
+        <<enumeration>>
+        WAITING_PAYMENT
+        PAID
+        SHIPPED
+        DELIVERED
+        CANCELED
+    }
+
+    User "1" --> "*" Order : places
+    Order "1" *-- "*" OrderItem : contains
+    OrderItem "*" --> "1" Product
+    Product "*" -- "1..*" Category
+    Order "1" --> "0..1" Payment
+    Order --> OrderStatus
+
+    style User fill:#FFFFCC,stroke:#333333,color:#000000
+    style Order fill:#FFFFCC,stroke:#333333,color:#000000
+    style OrderItem fill:#FFFFCC,stroke:#333333,color:#000000
+    style Product fill:#FFFFCC,stroke:#333333,color:#000000
+    style Category fill:#FFFFCC,stroke:#333333,color:#000000
+    style Payment fill:#FFFFCC,stroke:#333333,color:#000000
+    style OrderStatus fill:#E8E8E8,stroke:#333333,color:#000000
