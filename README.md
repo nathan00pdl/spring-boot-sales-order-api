@@ -80,9 +80,9 @@ flowchart TD
     R --> S[Service layer]
     S --> D["Data access layer<br/>JPA repositories"]
     D --> DB[("H2 in-memory")]
-    E[Entities] -.-> R
-    E -.-> S
-    E -.-> D
+    R -.-> E[Entities]
+    S -.-> E
+    D -.-> E
 ```
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
