@@ -18,7 +18,54 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Domain model
 
-![Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enum.](domain_model.jpg)
+```mermaid
+classDiagram
+    class User {
+        +Long id
+        +String name
+        +String email
+        +String phone
+    }
+    class Order {
+        +Long id
+        +Instant moment
+        +OrderStatus orderStatus
+        +getTotal() Double
+    }
+    class OrderItem {
+        +Integer quantity
+        +Double price
+        +getSubTotal() Double
+    }
+    class Product {
+        +Long id
+        +String name
+        +Double price
+    }
+    class Category {
+        +Long id
+        +String name
+    }
+    class Payment {
+        +Long id
+        +Instant moment
+    }
+    class OrderStatus {
+        <<enumeration>>
+        WAITING_PAYMENT
+        PAID
+        SHIPPED
+        DELIVERED
+        CANCELED
+    }
+
+    User "1" --> "*" Order : places
+    Order "1" *-- "*" OrderItem : contains
+    OrderItem "*" --> "1" Product
+    Product "*" -- "*" Category
+    Order "1" --> "0..1" Payment
+    Order --> OrderStatus
+```
 
 - **`Product`** and **`Category`** relate many-to-many.
 - **`Order`** belongs to a **`User`** and carries an **`OrderStatus`**: `WAITING_PAYMENT`, `PAID`, `SHIPPED`, `DELIVERED` or `CANCELED`.
@@ -27,7 +74,16 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Architecture
 
-![Logical layers: resource layer with the REST controllers, service layer, data access layer with the repositories, and the entities beside them.](logical_layers.jpg)
+```mermaid
+flowchart TD
+    Client[Client] --> R["Resource layer<br/>REST controllers"]
+    R --> S[Service layer]
+    S --> D["Data access layer<br/>JPA repositories"]
+    D --> DB[("H2 in-memory")]
+    E[Entities] -.-> R
+    E -.-> S
+    E -.-> D
+```
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
 
@@ -57,9 +113,14 @@ cd spring-boot-sales-order-api
 ./mvnw spring-boot:run
 ```
 
-The API starts on `http://localhost:8080` with the `test` profile and an in-memory H2 database. `TestConfig` runs at startup and seeds it with 3 categories, 5 products, 2 users, 3 orders and their items and payment — the same scenario as this diagram, with different names for the users:
+The API starts on `http://localhost:8080` with the `test` profile and an in-memory H2 database. `TestConfig` runs at startup and seeds it:
 
-![Domain instance: three categories, five products, two users and three orders with their items and one payment.](domain_instance.jpg)
+| Entity | Seeded data |
+|---|---|
+| Categories | Electronics · Books · Computers |
+| Products | The Lord of the Rings · Smart TV · Macbook Pro · PC Gamer · Rails for Dummies |
+| Users | João Pedro · João fauser |
+| Orders | Three, one `PAID`, one `WAITING_PAYMENT` and one `DELIVERED`, with four items in total and one payment |
 
 The data lives only while the application is running, so every restart starts from this same state.
 
