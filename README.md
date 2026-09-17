@@ -20,11 +20,13 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ```mermaid
 classDiagram
+    direction LR
     class User {
         +Long id
         +String name
         +String email
         +String phone
+        +String password
     }
     class Order {
         +Long id
@@ -40,7 +42,9 @@ classDiagram
     class Product {
         +Long id
         +String name
+        +String description
         +Double price
+        +String imgUrl
     }
     class Category {
         +Long id
@@ -62,7 +66,7 @@ classDiagram
     User "1" --> "*" Order : places
     Order "1" *-- "*" OrderItem : contains
     OrderItem "*" --> "1" Product
-    Product "*" -- "*" Category
+    Product "*" -- "1..*" Category
     Order "1" --> "0..1" Payment
     Order --> OrderStatus
 ```
