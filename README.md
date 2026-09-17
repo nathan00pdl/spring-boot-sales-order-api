@@ -1,37 +1,78 @@
-# Java project - API with Spring Boot and H2 database
+# Sales Order API — Spring Boot and JPA
 
-### License
+[![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/17/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.3-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![License](https://img.shields.io/github/license/nathan00pdl/spring-boot-sales-order-api)](LICENSE)
 
-This project is licensed under **MIT** license. See the `LICENSE` file for more informations. 
+A REST API for a small sales system: products organized in categories, orders made by users, the items of each order and their payment.
 
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/nathan00pdl/Projeto2_Java_Spring/blob/main/LICENSE) 
+Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Programming + Projects"*, by Nélio Alves. It is my second Spring Boot application, and the first with a domain large enough to need exception handling and a seeded database.
 
+## Tech stack
 
-# About the project 
+- **Java 17**
+- **Spring Boot 3.1.3** — Spring Web and Spring Data JPA
+- **Hibernate** (JPA implementation)
+- **H2** in-memory database
+- **Maven**, through the Maven Wrapper (`./mvnw`)
 
-This project was carried out in conjunction with the classes available in the course ***"COMPLETE Java 2023 Object-Oriented Programming + Projects"*** on the [Udemy](https://www.udemy.com/) platform. 
+## Domain model
 
-In short, as a second java application using the **Spring Boot** framework, I maintained some features of the first project, but involving a basic system of **users**, **orders** and **payments**.   
+![Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enum.](domain_model.jpg)
 
-## Project Structure  
-- **Layered architecture - MVC** 
-- Design pattern: **DAO** (Data Access Object)
+- **`Product`** and **`Category`** relate many-to-many.
+- **`Order`** belongs to a **`User`** and carries an **`OrderStatus`**: `WAITING_PAYMENT`, `PAID`, `SHIPPED`, `DELIVERED` or `CANCELED`.
+- **`OrderItem`** is the association between an order and a product, with quantity and price at the time of the sale. Its key is composite (`OrderItemPK`), and `getSubTotal()` and `Order.getTotal()` are computed on the fly, never stored.
+- **`Payment`** is one-to-one with `Order` and optional: an order exists before it is paid.
 
-## Backend
-- **Java**
-- **Spring Boot** 
-- **JPA** + **Hibernate** implementation (data access with Object-Relational Mapping - **ORM**)
-- **Maven** (dependency management)
-  
-## Conection to the Database
-- **JDBC** (SQL-based data access)
-  
-## Web Requests
-- **Postman** (testing requests with methods GET, PUT, POST e DELETE)
+## Architecture
 
-### Contact with me
+![Logical layers: resource layer with the REST controllers, service layer, data access layer with the repositories, and the entities beside them.](logical_layers.jpg)
 
-Nathan Paiva de Lacerda
+`resources` (REST controllers) → `services` → `repositories` → `entities`.
 
-https://www.linkedin.com/in/nathan-paiva-636336236
+Errors do not leak as stack traces: `ResourceExceptionHandler` is a `@ControllerAdvice` that turns `ResourceNotFoundException` into 404 and `DatabaseException` into 400, both as a `StandardError` body with timestamp, status, error, message and path.
 
+## Endpoints
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/products` · `/products/{id}` | Products, read-only |
+| `GET` | `/categories` · `/categories/{id}` | Categories, read-only |
+| `GET` | `/orders` · `/orders/{id}` | Orders with their items, client and payment, read-only |
+| `GET` | `/users` · `/users/{id}` | Users |
+| `POST` | `/users` | Creates a user |
+| `PUT` | `/users/{id}` | Updates name, email and phone |
+| `DELETE` | `/users/{id}` | Deletes a user; returns 400 when the user still has orders |
+
+Only `/users` has the four operations. The other resources are read-only, which is how the course builds them.
+
+## Running locally
+
+Requirements: **Java 17**. Maven does not need to be installed.
+
+```bash
+git clone https://github.com/nathan00pdl/spring-boot-sales-order-api.git
+cd spring-boot-sales-order-api
+./mvnw spring-boot:run
+```
+
+The API starts on `http://localhost:8080` with the `test` profile and an in-memory H2 database. `TestConfig` runs at startup and seeds it with 3 categories, 5 products, 2 users, 3 orders and their items and payment — the same scenario as this diagram, with different names for the users:
+
+![Domain instance: three categories, five products, two users and three orders with their items and one payment.](domain_instance.jpg)
+
+The data lives only while the application is running, so every restart starts from this same state.
+
+```bash
+curl http://localhost:8080/orders/1
+```
+
+The H2 console is at `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:mem:testdb`, user `sa`, empty password), and the SQL Hibernate runs is printed to the log.
+
+## License
+
+Licensed under the [MIT License](LICENSE).
+
+## Contact
+
+Nathan Paiva de Lacerda — [LinkedIn](https://www.linkedin.com/in/nathan-paiva-636336236)
