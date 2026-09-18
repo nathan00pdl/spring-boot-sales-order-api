@@ -18,7 +18,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Domain model
 
-<img src="docs/domain-model.svg" alt="Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enumeration." width="880">
+<a href="docs/domain-model.svg"><img src="docs/domain-model.svg" alt="Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enumeration." width="880"></a>
 
 - **`Product`** and **`Category`** relate many-to-many.
 - **`Order`** belongs to a **`User`** and carries an **`OrderStatus`**: `WAITING_PAYMENT`, `PAID`, `SHIPPED`, `DELIVERED` or `CANCELED`.
@@ -27,7 +27,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Architecture
 
-<img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="420">
+<a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="289"></a>
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
 
@@ -76,7 +76,7 @@ The H2 console is at `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:mem:t
 
 ## Diagrams
 
-Both diagrams are generated from the Mermaid sources in `docs/`, so they stay editable text rather than binary images:
+Click a diagram to open it at full size. Both diagrams are generated from the Mermaid sources in `docs/`, so they stay editable text rather than binary images:
 
 ```bash
 npx @mermaid-js/mermaid-cli -i docs/domain-model.mmd -o docs/domain-model.svg -t default -b white -c docs/mermaid-config.json
