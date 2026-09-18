@@ -18,7 +18,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Domain model
 
-<a href="docs/domain-model.svg"><img src="docs/domain-model.svg" alt="Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enumeration." width="880"></a>
+<p align="center"><a href="docs/domain-model.svg"><img src="docs/domain-model.svg" alt="Domain model: Product and Category, Order with its OrderItems and Payment, User as the client, and the OrderStatus enumeration." width="880"></a></p>
 
 - **`Product`** and **`Category`** relate many-to-many.
 - **`Order`** belongs to a **`User`** and carries an **`OrderStatus`**: `WAITING_PAYMENT`, `PAID`, `SHIPPED`, `DELIVERED` or `CANCELED`.
@@ -27,7 +27,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Architecture
 
-<a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="289"></a>
+<p align="center"><a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="289"></a></p>
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
 
