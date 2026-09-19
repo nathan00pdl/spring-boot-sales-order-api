@@ -1,15 +1,11 @@
 flowchart TD
     Client[Client] --> R["Resource layer<br/>REST controllers"]
     R --> S[Service layer]
-    S --> D["Data access layer<br/>JPA repositories"]
+    S --> D["Data access layer<br/>JPA repositories · entities"]
     D --> DB[("H2 in-memory")]
-    R -.-> E[Entities]
-    S -.-> E
-    D -.-> E
 
     style Client fill:#E8E8E8,stroke:#333333,color:#000000
     style R fill:#FFFFCC,stroke:#333333,color:#000000
     style S fill:#FFFFCC,stroke:#333333,color:#000000
     style D fill:#FFFFCC,stroke:#333333,color:#000000
-    style E fill:#FFFFCC,stroke:#333333,color:#000000
     style DB fill:#E8E8E8,stroke:#333333,color:#000000
