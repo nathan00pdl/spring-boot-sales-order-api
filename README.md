@@ -27,7 +27,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Architecture
 
-<p align="center"><a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="289"></a></p>
+<p align="center"><a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer down to H2; all three layers use the entities." width="314"></a></p>
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
 
@@ -79,8 +79,13 @@ The H2 console is at `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:mem:t
 Click a diagram to open it at full size. Both diagrams are generated from the Mermaid sources in `docs/`, so they stay editable text rather than binary images:
 
 ```bash
-npx @mermaid-js/mermaid-cli -i docs/domain-model.mmd -o docs/domain-model.svg -t default -b white -c docs/mermaid-config.json
+for d in docs/*.mmd; do
+  npx @mermaid-js/mermaid-cli -i "$d" -o "${d%.mmd}.svg" -t default -b white -c docs/mermaid-config.json
+  python3 docs/finish-svg.py "${d%.mmd}.svg"
+done
 ```
+
+`finish-svg.py` adds a margin around each diagram and gives the arrow labels an opaque background, so the SVG looks the same in any viewer.
 
 ## License
 
