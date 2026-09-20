@@ -74,19 +74,6 @@ curl http://localhost:8080/orders/1
 
 The H2 console is at `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:mem:testdb`, user `sa`, empty password), and the SQL Hibernate runs is printed to the log.
 
-## Diagrams
-
-Click a diagram to open it at full size. Both diagrams are generated from the Mermaid sources in `docs/`, so they stay editable text rather than binary images:
-
-```bash
-for d in docs/*.mmd; do
-  npx @mermaid-js/mermaid-cli -i "$d" -o "${d%.mmd}.svg" -t default -b white -c docs/mermaid-config.json
-  python3 docs/finish-svg.py "${d%.mmd}.svg"
-done
-```
-
-`finish-svg.py` adds a margin around each diagram and gives the arrow labels an opaque background, so the SVG looks the same in any viewer.
-
 ## License
 
 Licensed under the [MIT License](LICENSE).
