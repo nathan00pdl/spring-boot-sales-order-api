@@ -27,7 +27,7 @@ Built while following the Udemy course *"COMPLETE Java 2023 Object-Oriented Prog
 
 ## Architecture
 
-<p align="center"><a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer, where the entities live, down to H2." width="276"></a></p>
+<p align="center"><a href="docs/architecture.svg"><img src="docs/architecture.svg" alt="Logical layers: the client calls the resource layer, which calls the service layer and then the data access layer, where the entities live, down to H2." width="818"></a></p>
 
 `resources` (REST controllers) → `services` → `repositories` → `entities`.
 

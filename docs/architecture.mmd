@@ -1,7 +1,7 @@
 %% Regenerate after editing this file:
 %%   npx @mermaid-js/mermaid-cli -i docs/architecture.mmd -o docs/architecture.svg -t default -b white -c docs/mermaid-config.json
 %%   python3 docs/finish-svg.py docs/architecture.svg
-flowchart TD
+flowchart LR
     Client[Client] --> R["Resource layer<br/>REST controllers"]
     R --> S[Service layer]
     S --> D["Data access layer<br/>JPA repositories · entities"]
